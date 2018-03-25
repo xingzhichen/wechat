@@ -3,6 +3,7 @@ const redis = require('redis');
 const fs = require('fs');
 const request = require('request');
 const access_token_config = require('./access_token.json');
+const {WECHAT_DOMAIN, ACCESS_TOKEN} = require('./constant');
 const verifyConfigRules = [
   {
     action: () => true,
@@ -48,9 +49,9 @@ const verifySendMessageRules = [
   }
 ]
 const defaultConfig = {
-  "wechatApiDomain": "https://api.weixin.qq.com/",
+  "wechatApiDomain": WECHAT_DOMAIN,
   "wechatApiURL": {
-    "accessTokenApi": "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&"
+    "accessTokenApi": ACCESS_TOKEN
   },
   "access_token": {
     type: 'file'
@@ -79,20 +80,17 @@ function requestPost(url, body) {
       json: true,
       body: body
     }, function (err, response, body) {
-      // if (err ||body.errcode) {
-      //   throw new Error(body);
-      // } else {
-      //   resolve(body);
-      //
-      // }
-      console.log(body)
+      if (body.errcode) {
+        throw new Error(`错误码为${data.errcode},错误信息为${data.errmsg}`)
+      } else {
+        resolve(body)
+      }
     });
   })
 }
 
 class redisClient {
   constructor() {
-
   }
 }
 
@@ -154,6 +152,7 @@ class Client {
 class Token {
   constructor(config) {
     this.config = Object.assign({}, config, defaultConfig);
+    this.verifyConfig(this.config);
   }
 
   verifyConfig(config) {

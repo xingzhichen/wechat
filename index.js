@@ -7,12 +7,11 @@ const
     } = require('./utils');
 
 const {
-  serviceMessageUrl, //发送客服消息url
-  templateMessageUrl, //发送模板消息url
-  patchGetUserInfoUrl, //批量获取用户信息url
-  getUserInfoUrl //获得用户信息url
+  SERVICE_URL, //发送客服消息url
+  TEMPLATE_URL, //发送模板消息url
+  PATCH_USERINFO_URL, //批量获取用户信息url
+  USERINFO_URL //获得用户信息url
 } = require('./constant')
-
 class WeChat extends Token {
   constructor(config) {
     super(config);
@@ -20,13 +19,13 @@ class WeChat extends Token {
 
   //发送客服消息
   async sendService(data) {
-    await this.sendMessage(serviceMessageUrl, data)
+    await this.sendMessage(SERVICE_URL, data)
 
   }
 
   //发送模板消息
   async sendTemplateMessage(data) {
-    await this.sendMessage(templateMessageUrl, data)
+    await this.sendMessage(TEMPLATE_URL, data)
   }
 
   async sendMessage(url, data) {
@@ -48,7 +47,7 @@ class WeChat extends Token {
    */
   async getuserInfo(openid, lang = 'zh_CN') {
     const token = await this.getAccessToken();
-    const url = `${getUserInfoUrl}?access_token=${token}&openid=${openid}&lang=${lang}`;
+    const url = `${USERINFO_URL}?access_token=${token}&openid=${openid}&lang=${lang}`;
     const result = await requestGet(url);
     return result
   }
@@ -60,7 +59,7 @@ class WeChat extends Token {
    */
   async batchGetUserInfo(data) {
     const token = await this.getAccessToken();
-    const url = `${patchGetUserInfoUrl}?access_token=${token}`;
+    const url = `${PATCH_USERINFO_URL}?access_token=${token}`;
     const result = await requestPost(url, data);
     return result
   }
