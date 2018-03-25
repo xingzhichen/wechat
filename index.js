@@ -19,13 +19,12 @@ class WeChat extends Token {
 
   //发送客服消息
   async sendService(data) {
-    await this.sendMessage(SERVICE_URL, data)
-
+    return await this.sendMessage(SERVICE_URL, data)
   }
 
   //发送模板消息
   async sendTemplateMessage(data) {
-    await this.sendMessage(TEMPLATE_URL, data)
+   return  await this.sendMessage(TEMPLATE_URL, data);
   }
 
   async sendMessage(url, data) {
@@ -34,7 +33,7 @@ class WeChat extends Token {
     })
     const token = await this.getAccessToken();
     url = `${url}?access_token=${token}`;
-    await requestPost(url, body);
+    return await requestPost(url, data);
   }
 
   //获取用户信息

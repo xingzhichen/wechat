@@ -44,7 +44,7 @@ const wechat = new WeChat(config);
      /**
       * 获取用户基本信息
       * @param   {String} openid
-      * @param   {String} lang
+      * @param   {String} lang 默认为中文，可不传
       * @returns {Promise}
       */
    wechat.getuserInfo('o5vQ10tlcdbaKV4MvjdrurDqBHqg',lang)
@@ -88,7 +88,7 @@ const wechat = new WeChat(config);
 5. 发送模板消息 **wechat.sendTemplateMessage()** 支持官方所有类型
 
    ```
-    wechat.sendService({    //配置项和官方相同
+    wechat.sendTemplateMessage({    //配置项和官方相同
      "touser": "OPENID",
      "template_id": "ngqIpbwh8bUfcSsECmogfXcV14J0tQlEpBO27izEYtY",
      "url": "http://weixin.qq.com/download",

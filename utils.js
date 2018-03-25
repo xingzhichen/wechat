@@ -7,7 +7,7 @@ const {WECHAT_DOMAIN, ACCESS_TOKEN} = require('./constant');
 const verifyConfigRules = [
   {
     action: () => true,
-    match: () => {
+    match: (config) => {
       const normalKey = ['token', 'appID', 'appScrect'];
       normalKey.forEach(item => {
         if (!config.hasOwnProperty(item)) {
@@ -81,7 +81,7 @@ function requestPost(url, body) {
       body: body
     }, function (err, response, body) {
       if (body.errcode) {
-        throw new Error(`错误码为${data.errcode},错误信息为${data.errmsg}`)
+        throw new Error(`错误码为${body.errcode},错误信息为${body.errmsg}`)
       } else {
         resolve(body)
       }
