@@ -39,6 +39,13 @@ class WeChat extends Token {
   }
 
   //获取用户信息
+
+  /**
+   * 获取用户基本信息
+   * @param   {String} openid
+   * @param   {String} lang
+   * @returns {Promise}
+   */
   async getuserInfo(openid, lang = 'zh_CN') {
     const token = await this.getAccessToken();
     const url = `${getUserInfoUrl}?access_token=${token}&openid=${openid}&lang=${lang}`;
@@ -46,7 +53,11 @@ class WeChat extends Token {
     return result
   }
 
-  //批量获取用户信息
+  /**
+   * 批量获取用户信息
+   * @param   {Object} data
+   * @returns {Promise}
+   */
   async batchGetUserInfo(data) {
     const token = await this.getAccessToken();
     const url = `${patchGetUserInfoUrl}?access_token=${token}`;
