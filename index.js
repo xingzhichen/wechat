@@ -17,6 +17,8 @@ class WeChat extends Token {
     super(config);
   }
 
+
+
   //发送客服消息
   async sendService(data) {
     return await this.sendMessage(SERVICE_URL, data)
